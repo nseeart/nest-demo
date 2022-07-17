@@ -1,0 +1,3 @@
+{
+  "extends": "./nest-mysql-graphql/tsconfig.json"
+}
