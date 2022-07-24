@@ -6,10 +6,12 @@ import {
   Put,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { getNumber } from '../../utils';
 
 @Controller('user')
 export class UserController {
@@ -23,6 +25,14 @@ export class UserController {
   @Get()
   findAll() {
     return this.userService.findAll();
+  }
+
+  @Get('page')
+  findAndCount(@Query() query: { page?: number; size?: number } = {}) {
+    const { page, size } = query;
+    return this.userService.findAndCount({
+      pagination: { page: getNumber(page), size: getNumber(size) },
+    });
   }
 
   @Get(':id')

@@ -16,7 +16,19 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type UserEntityPagination {
+  size: Float!
+  page: Float!
+}
+
+type UserListPaginated {
+  pagination: UserEntityPagination
+  list: [UserEntity!]
+  total: Int!
+}
+
 type Query {
   users: [UserEntity!]
   user(id: Float!): UserEntity
+  userList(page: Int = 1, size: Int = 20): UserListPaginated
 }
